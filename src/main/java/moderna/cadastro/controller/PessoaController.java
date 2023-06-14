@@ -1,10 +1,9 @@
 package moderna.cadastro.controller;
 
+import lombok.AllArgsConstructor;
 import moderna.cadastro.model.Pessoa;
 import moderna.cadastro.repository.PessoaRepository;
 import moderna.cadastro.service.PessoaService;
-import org.hibernate.internal.build.AllowPrintStacktrace;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,12 +11,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/pessoas")
+@AllArgsConstructor
 public class PessoaController {
 
-    @Autowired //spring gerenciar nossas instancias de repositório.
     private PessoaRepository pessoaRepository;
-
-    @Autowired
     private PessoaService pessoaService;
 
     @GetMapping("/texto1")
