@@ -1,6 +1,7 @@
 package moderna.cadastro.model;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Pessoa {
     private String documento;
     private String email;
     private String dataNascimento;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "pessoa_id")

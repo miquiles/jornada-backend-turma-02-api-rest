@@ -13,26 +13,42 @@ public class PessoaService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public Pessoa salvarPessoa(Pessoa pessoa){
+    public Pessoa salvarPessoa(Pessoa pessoa) throws Exception {
         var pessoaSalva = buscarPessoaPorDocumento(pessoa.getDocumento());
 
         if(pessoaSalva.isEmpty()){
             return pessoaRepository.save(pessoa);
         }else{
-            System.out.println("cliente existente. Nao pode salvar");
+            throw new Exception("cliente existente");
         }
-        return new Pessoa();
+
     }
 
-    public void deletarPorId(Long id){
+    public void deletarPorId(Long id) throws Exception {
         var pessoaSalva = pessoaRepository.findById(id);
 
         if(pessoaSalva.isPresent()){
             pessoaRepository.deleteById(id);
         }else{
-            System.out.println("cliente nao existe");
+            throw new Exception("cliente existente");
         }
     }
+
+//    public Optional<Pessoa> buscarPorId(Long id) throws Exception {
+//        var clienteSalvo = pessoaRepository.findById(id);
+//        if(clienteSalvo.isEmpty()){
+//            throw new Exception("cliente nao existe");
+//        }else{
+//           return clienteSalvo;
+//        }
+//    }
+
+    public Optional<Pessoa> buscarPorId(Long id) throws Exception {
+        return Optional.ofNullable(pessoaRepository.findById(id)
+                .orElseThrow(() -> new Exception("cliente nao existe")));
+    }
+
+
 
     private Optional<Pessoa> buscarPessoaPorDocumento(String documento){
         return pessoaRepository.findByDocumento(documento);
